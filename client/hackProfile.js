@@ -6,14 +6,8 @@ Template.hackerProfile.events({
 		let email = template.find('#email').value;
 		let hack = template.find('#hack').value;
 
-		let hackerProfile = {
-			name:name,
-			pseudo:pseudo,
-			email:email,
-			hack:hack
-		}
 
-		Hackers.insert(hackerProfile);
+		Meteor.call("addHacker",name,pseudo,email,hack);
 
 	}
 
