@@ -21,6 +21,14 @@
 		</div>
 		<button type="submit" id="submit-btn" class="btn btn-default ">Submit</button>
 	</form>
+	<div id="hackerList">
+		{{ #each myHackers }}
+		<p>{{this.name}}</p>
+		<p>{{this.pseudo}}</p>
+		<p>{{this.email}}</p>
+		<p>{{this.hack}}</p>
+		{{ /each }}
+	</div>
 </template>
 
 <template name="new">

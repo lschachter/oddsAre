@@ -1,4 +1,3 @@
-
 Template.hackerProfile.events({
 	"click #submit-btn": function(event,template){
 		let name = template.find('#name').value;
@@ -13,3 +12,9 @@ Template.hackerProfile.events({
 
 });
 
+
+Template.hackerProfile.helpers({
+	'myHackers': function(){
+		return Hackers.find().fetch();
+	}
+})
