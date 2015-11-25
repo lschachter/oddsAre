@@ -1,6 +1,6 @@
 Meteor.methods({
 	addHacker: function(name,pseudo,email,hack){
-		console.log(this.userId);
+		//console.log(this.userId);
 		if(!this.userId){
 			console.log('Not Logged In');
 		} else {
