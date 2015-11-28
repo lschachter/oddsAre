@@ -1,0 +1,22 @@
+<template name="sendDare">
+	{{#if isOwner}}
+      <button class="toggle-private">
+        {{#if private}}
+          Private
+        {{else}}
+          Public
+        {{/if}}
+      </button>
+    {{/if}}
+	<form class="col-xs-12">
+		<div class="form-group">
+			<label for="dare" class="col-xs-12 control-label">Odds Are:</label>
+			<div class="col-xs-offset-3 col-xs-6">
+				<input type="text" class="form-control" id="dare" placeholder="you run in a circle ten times">
+			</div>
+		</div>
+		<div class="col-xs-12">
+			<button type="submit" id="submit-dare" class="btn btn-default ">Submit</button>
+		</div>
+	</form>
+</template>

@@ -1,9 +1,9 @@
-Meteor.publish('hackersList',function(userdId){
+Meteor.publish('dares',function(userdId){
 	// Only sending documents from collection with current users id 
-	return Hackers.find({user:userdId});
+	return Dares.find({user:userdId});
 });
 
-Hackers.allow({
+Dares.allow({
 	insert: function(userdId, doc){
 		return true;
 	},
