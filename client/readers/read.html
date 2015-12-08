@@ -1,0 +1,40 @@
+<template name="read">
+	<div class="container">
+		<form class="col-xs-12">
+		<div class="form-group">
+			<label for="num" class="col-xs-12 control-label">{{oddsAre}}</label>
+			<div class="col-xs-offset-3 col-xs-6">
+				<input type="range" class="form-control" id="num" min="1" max="1000" value="500" oninput="numVal.value=value">
+			</div>
+			<input type="number" id="numVal" class="col-xs-offset-5 col-xs-2 control-label" value="500" max="1000" min="1" oninput="num.value=value">
+		</div>
+		<div class="col-xs-12">
+			<button type="submit" id="submit-max" class="btn btn-default ">Submit</button>
+		</div>
+		<div class="col-xs-12">
+	        <button type="submit" id="submit-home" class="btn btn-default ">Home</button>
+	    </div>
+	</form>
+	</div>
+</template>
+
+<template name="readWaiting">
+	<div class="container">
+		<div class="col-xs-12">
+			<strong>{{dare}}</strong>
+			<br>
+			<br>
+			Waiting on:
+			{{#each friends}}
+			<li>
+				<span class="text"> - <strong>{{username}}</strong> - </span>
+	        </li>
+	        {{/each}}
+		</div>
+		<form>
+			<div class="col-xs-12">
+				<button type="submit" id="submit-home" class="btn btn-default ">Return</button>
+			</div>
+		</form>
+	</div>
+</template>

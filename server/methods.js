@@ -1,43 +1,95 @@
 Meteor.methods({
-	setPrivate: function(dareId, setToPrivate){
-	    let dare = Dares.findOne(dareId);
-
-	    //Make sure only the owner can make a task private
-	    if (dare.owner !== Meteor.userId()){
-	      throw new Meteor.Error("not-authorized");
-	    }
-	    Dares.update(dareId, { $set: { private: setToPrivate}});
-    },
 	addDare: function(dare){
 		if (!this.userId){
 			console.log('Not Logged In');
 		}
 		else{
 			Dares.insert({
-				'dare': dare,
+				'challenge': dare,
 				'createdAt': new Date(),
-				'creator': this.userId,
-				//should also have set for friends 
-				//receivind dare; ask how to use that
-				'userName': Meteor.user.userName
+				'creator': Meteor.userId(),
+				'userName': Meteor.user().username
 			});
 		}
 	},
-	sendOdds: function(odds){
+	addSent: function(thisDare, friendly){
+		Dares.update(
+			{_id: thisDare},
+			{$push: {sendTo: { $each: [friendly] }}}
+		);
+	},
+	getCurrentDare: function(){
+		return Dares.findOne({userName: Meteor.user().username}, {sort: {createdAt: -1}});
+	},
+	getUsers: function(){
 		if (!this.userId){
 			console.log('Not Logged In');
+			return null;
 		}
 		else{
-			/*have to find way to send back to darer*/
-			console.log(odds);
+			return Meteor.users.find().fetch();
 		}
 	},
-	compareNums: function(num){
+	getClickedDare: function(dareId){
+		if (!this.userId){
+			console.log('Not Logged In');
+			return null;
+		}
+		else{
+			console.log(dareId);
+			return Dares.findOne({_id:dareId});
+		}
+	},
+	maxDare: function(dareId, number){
 		if (!this.userId){
 			console.log('Not Logged In');
 		}
 		else{
-			console.log(num);
+			Dares.update(
+				{_id: dareId},
+				{$set: {max: number}}
+			);
 		}
+	},
+	getDaresReceived: function(){
+		if (!this.userId){
+			console.log('Not Logged In');
+			return null;
+		}
+		else{
+			//must take in list of friends as limiter as well
+			return Dares.find({sendTo:{$regex:Meteor.userId()}}).fetch();
+		}
+	},
+	getUsersSent: function(dareId){
+		if (!this.userId){
+			console.log('Not Logged In');
+			return null;
+		}
+		else{
+			let sents = Dares.findOne({_id:dareId}).sendTo;
+			return Meteor.users.find({_id: { $in: sents}}).fetch();
+		}
+	},
+	getDareWaiting: function(dareId){
+		if (!this.userId){
+			console.log('Not Logged In');
+			return null;
+		}
+		else{
+			return Dares.findOne({_id:dareId}).challenge;
+		}
+	},
+	getDaresSent: function(){
+		if (!this.userId){
+			console.log('Not Logged In');
+			return null;
+		}
+		else{
+			return Dares.find({creator:Meteor.userId()}).fetch();
+		}
+	},
+	deleteDare: function(){
+		Dares.remove(Dares.findOne({userName: Meteor.user().username}, {sort: {createdAt: -1}}));
 	}
 });
