@@ -1,25 +1,30 @@
 <template name="daresReceived">
 	<div class="container">
-		<h1>Your odds</h1>
-		<ul>
-	      {{#each yourDares}}
-	        <li  class="click-dare">	       
-	          <span class="text" id="giveMax"> - <strong>{{userName}}</strong> - Odds are...</span>
-	        </li>
-	      {{/each}}
-	    </ul>
-	    <h1>Odds Pending</h1>
-		<ul>
-	      {{#each pendingDares}}
-	        <li  class="click-dare">
-	          <span class="text" id="waiting"> - {{challenge}} -</span>
-	        </li>
-	      {{/each}}
-	    </ul>
-		<form class="new-task">
-		    <div class="col-xs-12">
-	       		<button type="submit" id="submit-new" class="btn btn-default ">Create New</button>
-	      	</div>
-	    </form>
+		{{#if currentUser}}
+			<h1>Your odds</h1>
+			<ul>
+		      {{#each yourDares}}
+		        <li  class="click-dare">	       
+		          <span class="text" id="giveMax"> - <strong>{{from}}</strong> - Odds are...</span>
+		        </li>
+		      {{/each}}
+		    </ul>
+		    <h1>Odds Pending</h1>
+			<ul>
+		      {{#each pendingDares}}
+		        <!--<li  class="click-dare">
+		          <span class="text" id="waiting"> - {{challenge}} -</span>
+		        </li>-->
+		        <li  class="click-dare">	       
+		          <span class="text" id="waiting"> - <strong>{{getUser friendId=this.sendTo }}</strong> - Odds are...</span>
+		        </li>
+		      {{/each}}
+		    </ul>
+			<form class="new-task">
+			    <div class="col-xs-12">
+		       		<button type="submit" id="submit-new" class="btn btn-default ">Create New</button>
+		      	</div>
+		    </form>
+		{{/if}}
    	</div>
 </template>

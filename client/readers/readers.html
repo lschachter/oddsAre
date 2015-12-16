@@ -1,0 +1,69 @@
+<template name="read">
+	<div class="container">
+		{{#if currentUser}}
+			<form class="col-xs-12">
+				<div class="form-group">
+					<span class="text" id="giveMax"> - <strong>{{oddsAre}}</strong> - </span>
+					<br>
+					<span class="text" id="giveMax"> From: <strong>{{from}}</strong></span>
+					{{#if isMax}}
+						<label for="num" class="col-xs-12 control-label">Max: {{findMax}}</label>
+						<div class="col-xs-offset-3 col-xs-6">
+							<input type="range" class="form-control" id="num" min="1" max="{{findMax}}" value="{{findMax}}/2" oninput="numVal.value=value">
+						</div>
+						<input type="number" id="numVal" class="col-xs-offset-5 col-xs-2 control-label" value="{{findMax}}/2" max="{{findMax}}" min="1" oninput="num.value=value">
+					{{else}}
+						<label for="num" class="col-xs-12 control-label">Max --</label>
+						<div class="col-xs-offset-3 col-xs-6">
+							<input type="range" class="form-control" id="num" min="2" max="1000" value="500" oninput="numVal.value=value">
+						</div>
+						<input type="number" id="numVal" class="col-xs-offset-5 col-xs-2 control-label" value="500" max="1000" min="1" oninput="num.value=value">
+					{{/if}}
+				</div>
+				{{#if isMax}}
+					<div class="col-xs-12">
+						<button type="submit" id="submit-odds" class="btn btn-default ">Submit 
+							Number</button>
+					</div>
+				{{else}}
+					<div class="col-xs-12">
+						<button type="submit" id="submit-max" class="btn btn-default ">Submit Maximum</button>
+					</div>
+				{{/if}}
+				<div class="col-xs-12">
+			        <button type="submit" id="submit-home" class="btn btn-default ">Home</button>
+			    </div>
+			</form>
+		{{/if}}
+	</div>
+</template>
+
+<template name="readWaiting">
+	<div class="container">
+		{{#if currentUser}}
+			<div class="col-xs-12">
+				<strong>{{dare}}</strong>
+				<br>
+				{{#if isMax}}
+					<span class="text">Max: <strong>{{findMax}}</strong></span>
+			    {{/if}}
+				<br>
+				<br>
+				<br>
+				Created by:
+				<li>
+					<span class="text"> - <strong>{{owner}}</strong> - </span>
+		        </li>
+		        Waiting on:
+		        <li>
+					<span class="text"> - <strong>{{sentTo}}</strong> - </span>
+		        </li>
+			</div>
+			<form>
+				<div class="col-xs-12">
+					<button type="submit" id="submit-home" class="btn btn-default ">Return</button>
+				</div>
+			</form>
+		{{/if}}
+	</div>
+</template>

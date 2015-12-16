@@ -1,23 +1,25 @@
 <template name="findFriends">
 	<div class="container">
-		<h1>{{oddsAre}}</h1>
-		<ul>
-	      {{#each users}}
-	        <li  class="{{#if checked}}checked{{/if}}">
-	 
-	          <input value="{{@index}}" type="checkbox" checked="{{checked}}" class="toggle-checked" />
-	       
-	          <span class="text"> - <strong>{{username}}</strong> - </span>
-	        </li>
-	      {{/each}}
-	    </ul>
-		<form class="new-task">
-		    <div class="col-xs-12">
-	       		<button type="submit" id="submit-friends" class="btn btn-default ">Send To</button>
-	      	</div>
-	      	<div class="col-xs-12">
-	       		<button type="submit" id="submit-cancel" class="btn btn-default ">Cancel</button>
-	      	</div>
-	    </form>
+		{{#if currentUser}}
+			<h1>{{oddsAre}}</h1>
+			<ul>
+		      {{#each users}}
+		        <li  class="{{#if checked}}checked{{/if}}">
+		 
+		          <input value="{{@index}}" type="checkbox" checked="{{checked}}" class="toggle-checked" />
+		       
+		          <span class="text"> - <strong>{{username}}</strong> - </span>
+		        </li>
+		      {{/each}}
+		    </ul>
+			<form class="new-task">
+			    <div class="col-xs-12">
+		       		<button type="submit" id="submit-friends" class="btn btn-default ">Send To</button>
+		      	</div>
+		      	<div class="col-xs-12">
+		       		<button type="submit" id="submit-cancel" class="btn btn-default ">Cancel</button>
+		      	</div>
+		    </form>
+		{{/if}}
    	</div>
 </template>

@@ -1,35 +1,18 @@
 <template name="makeNewDare">
   <div class="container">
     {{#if currentUser}}
-    <form class="new-task">
-      <label for="newDare" >Odds are...</label>
-      <input type="text" id="newDare" name="text" placeholder="Type to add a new dare" />
-      <div class="col-xs-12">
-        <button type="submit" id="submit-dare" class="btn btn-default ">Submit</button>
-      </div>
-      <div class="col-xs-12">
-        <button type="submit" id="submit-home" class="btn btn-default ">Home</button>
-      </div>
-    </form>
+      <form class="new-task">
+        <label for="newDare" >Odds are...</label>
+        <input type="text" id="newDare" name="text" placeholder="Type to add a new dare" />
+        <div class="col-xs-12">
+          <button type="submit" id="submit-dare" class="btn btn-default ">Submit</button>
+        </div>
+        <div class="col-xs-12">
+          <button type="submit" id="submit-home" class="btn btn-default ">Home</button>
+        </div>
+      </form>
     {{/if}}
- 
-    <!--<ul>
-      {{#each dares}}
-        {{> dare}}
-      {{/each}}
-
-    </ul>-->
-    
   </div>
 </template>
- 
-<template name="dare">
-  <li class="{{#if checked}}checked{{/if}}">
-    <button class="delete">&times;</button>
- 
-    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
- 
-    <span class="text"><strong>{{userName}}</strong> - {{challenge}}</span>
-  </li>
-</template>
+
 

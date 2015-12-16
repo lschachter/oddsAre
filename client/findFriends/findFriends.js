@@ -1,13 +1,16 @@
+//Methods Called:
+	//getUsers
+	//makeDare
 Template.findFriends.helpers({
+	//currently presents all users as friends
 	users: function(){
 		friends = ReactiveMethod.call("getUsers");
     	return friends;
 
     },
+    //returns the most recent challenge made by the user
     oddsAre: function(){
-    	let thisDare = ReactiveMethod.call('getCurrentDare');
-    	Session.set("thisDare", thisDare._id);
-    	return thisDare.challenge;
+    	return Session.get("challenge");
     }
 });
 
@@ -17,15 +20,18 @@ Template.findFriends.events({
 		let nums = Session.get("indexes");
 		if (nums != undefined && nums != []){
 			for (let i= 0; i < nums.length; i++){
-				Meteor.call("addSent", Session.get("thisDare"), friends[nums[i]]._id);
+				Meteor.call("makeDare", Session.get("challenge"), friends[nums[i]]._id);
 			}
 		}
+		Session.set("challenge",undefined);
+		delete Session.keys['challenge'];
 		Router.go('/writeDare');
 
 	},
 	"click #submit-cancel":function(event){
 		event.preventDefault();
-		Meteor.call("deleteDare");
+		Session.set("challenge",undefined);
+		delete Session.keys['challenge'];
 		Router.go('/writeDare');
 	},
 	"click .toggle-checked":function(event){

@@ -3,7 +3,18 @@ Template.daresReceived.helpers({
 		return ReactiveMethod.call('getDaresReceived');
 	},
 	pendingDares: function(){
-		return ReactiveMethod.call('getDaresSent');
+		return ReactiveMethod.call('getPendingDares');
+	},
+	getUser: function(friendId){
+		return ReactiveMethod.call('getUser',friendId.hash.friendId).username;
+	},
+	from: function(){
+		if (this.creator == Meteor.userId()){
+			return ReactiveMethod.call('getUser',this.sendTo).username;
+		}
+		else{
+			return this.userName;
+		}
 	}
 });
 
