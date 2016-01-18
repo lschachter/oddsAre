@@ -5,9 +5,6 @@ Template.daresReceived.helpers({
 	pendingDares: function(){
 		return ReactiveMethod.call('getPendingDares');
 	},
-	getUser: function(friendId){
-		return ReactiveMethod.call('getUser',friendId.hash.friendId).username;
-	},
 	from: function(){
 		if (this.creator == Meteor.userId()){
 			return ReactiveMethod.call('getUser',this.sendTo).username;
@@ -30,7 +27,14 @@ Template.daresReceived.events({
 	"click #waiting": function(event,template){
 		event.preventDefault();
 		Router.go('readWaiting',{_id: 2},{query: this._id});
+	},
+	"click #submit-done":function(event){
+		event.preventDefault();
+		Router.go('/doneDares');
+	},
+	"click #submit-instructions":function(event){
+		event.preventDefault();
+		Router.go('/instructions');
 	}
-
 });
 

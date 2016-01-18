@@ -79,9 +79,14 @@ Template.readWaiting.helpers({
     	}
     	return Session.get("fullDarePending").userName;
     },
-    sentTo: function(){
-    	return ReactiveMethod.call("getUser",Session.get("fullDarePending").sendTo).username;
-    },
+    waiting: function(){
+		if(Meteor.user().username == Session.get("fullDarePending").userName){
+			return ReactiveMethod.call("getUser",Session.get("fullDarePending").sendTo).username;
+		}
+		else{
+			return Session.get("fullDarePending").userName;
+		}
+	},
     findMax: function(){
     	return Session.get('maxNumWaiting');
     }
@@ -93,3 +98,68 @@ Template.readWaiting.events({
 		Router.go('/');
 	}
 });
+
+Template.readDone.helpers({
+	oddsAre: function(){
+		let extraCount = 10;
+		let dareId = Iron.Location.get().path;
+		dareId = dareId.substring(extraCount, dareId.length);
+		Session.set('finaleId',dareId);
+		let fullDareFinale = ReactiveMethod.call("getDareWaiting", dareId);
+		Session.set('fullDareFinale',fullDareFinale);
+		Meteor.call("setNew", dareId);
+		return fullDareFinale.challenge;
+	},
+	ready:function(){
+		return Session.get('ready');
+	},
+	from:function(){
+		return ReactiveMethod.call('getUser',Session.get('fullDareFinale').creator).username;
+	},
+	to:function(){
+		return ReactiveMethod.call('getUser',Session.get('fullDareFinale').sendTo).username;
+	},
+	findMax: function(){
+		return Session.get('fullDareFinale').max;
+	},
+	creatorNum: function(){
+		return Session.get('fullDareFinale').creatorOdds;
+	},
+	receiverNum: function(){
+		return Session.get('fullDareFinale').receiverOdds;
+	},
+	isEqual: function(){
+		let cNum = Session.get('fullDareFinale').creatorOdds;
+		let rNum = Session.get('fullDareFinale').receiverOdds;
+		if (rNum == cNum){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+});
+
+Template.readDone.events({
+	"click #submit-back":function(event){
+		event.preventDefault();
+		Router.go('/doneDares');
+	}
+});
+
+Template.readDone.rendered = function(){
+	Session.set('ready',false);
+	let counter = 4;
+	let interval = setInterval(function() {
+		if (counter > 1){
+			$("#countdown").show();
+			counter--;
+	    	$("#countdown").html(counter);
+			$("#countdown").fadeOut(1000);	    	
+	    }
+    	else{
+        	clearInterval(interval);
+        	Session.set("ready",true);
+   		}
+	}, 1250);
+};

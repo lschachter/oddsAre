@@ -1,13 +1,17 @@
 <template name="layout">
 	{{ > navbar}}
-    {{> yield}}
+	{{#if currentUser}}
+    	{{> yield}}
+    {{else}}
+    	{{> instructions}}
+    {{/if}}
 </template>
 
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Simple Odds Are</title>
+    <title>Odds Are</title>
 
     <link rel="icon" type="image/png" href="logo.png" />
 

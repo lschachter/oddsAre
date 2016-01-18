@@ -1,30 +1,29 @@
 <template name="daresReceived">
 	<div class="container">
-		{{#if currentUser}}
-			<h1>Your odds</h1>
-			<ul>
-		      {{#each yourDares}}
-		        <li  class="click-dare">	       
-		          <span class="text" id="giveMax"> - <strong>{{from}}</strong> - Odds are...</span>
-		        </li>
-		      {{/each}}
-		    </ul>
-		    <h1>Odds Pending</h1>
-			<ul>
-		      {{#each pendingDares}}
-		        <!--<li  class="click-dare">
-		          <span class="text" id="waiting"> - {{challenge}} -</span>
-		        </li>-->
-		        <li  class="click-dare">	       
-		          <span class="text" id="waiting"> - <strong>{{getUser friendId=this.sendTo }}</strong> - Odds are...</span>
-		        </li>
-		      {{/each}}
-		    </ul>
-			<form class="new-task">
-			    <div class="col-xs-12">
-		       		<button type="submit" id="submit-new" class="btn btn-default ">Create New</button>
-		      	</div>
-		    </form>
-		{{/if}}
+		<form class="new-task">
+		    <div class="col-xs-12">
+	       		<button type="submit" id="submit-new" class="btn btn-default ">Create New</button>
+	       		<button type="submit" id="submit-done" class="btn btn-default">See Done</button>
+	      	</div>
+	      	<div class="col-xs-12">
+	       		<button type="submit" id="submit-instructions" class="btn btn-default">See Instructions</button>
+	      	</div>
+	    </form>
+		<h1>Require Action</h1>
+		<ul>
+	      {{#each yourDares}}
+	        <li  class="click-dare">	       
+	          <span class="text" id="giveMax"> - <strong>{{from}}</strong> - Odds are...</span>
+	        </li>
+	      {{/each}}
+	    </ul>
+	    <h1>Odds Pending</h1>
+		<ul>
+	      {{#each pendingDares}}
+	        <li  class="click-dare">	       
+	          <span class="text" id="waiting"> - <strong>{{from}}</strong> - Odds are...</span>
+	        </li>
+	      {{/each}}
+	    </ul>
    	</div>
 </template>

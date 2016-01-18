@@ -25,6 +25,8 @@ Template.findFriends.events({
 		}
 		Session.set("challenge",undefined);
 		delete Session.keys['challenge'];
+		Session.set("indexes",undefined);
+		delete Session.keys['indexes'];
 		Router.go('/writeDare');
 
 	},
@@ -32,11 +34,13 @@ Template.findFriends.events({
 		event.preventDefault();
 		Session.set("challenge",undefined);
 		delete Session.keys['challenge'];
+		Session.set("indexes",undefined);
+		delete Session.keys['indexes'];
 		Router.go('/writeDare');
 	},
 	"click .toggle-checked":function(event){
 		let nums = Session.get("indexes");
-		if (nums == undefined){
+		if (nums == undefined || nums == []){
 			Session.set("indexes",[event.target.value]);
 		}
 		else if (nums.indexOf(event.target.value) == -1){

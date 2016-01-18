@@ -11,6 +11,8 @@ Meteor.methods({
 				'createdAt': new Date(),
 				'creator': Meteor.userId(),
 				'userName': Meteor.user().username,
+				'isNewC': true,
+				'isNewR':true,
 				'sendTo': friendly
 			});
 		}
@@ -58,7 +60,7 @@ Meteor.methods({
 		}
 		else{
 			let thisDare = Dares.findOne({_id:dareId});
-			if (whichPlayer == thisDare.creator){
+			if (whichPlayer == thisDare.creator && thisDare.creatorOdds == undefined){
 				Dares.update(
 					{_id:dareId},
 					{$set: {creatorOdds: number}}
@@ -103,15 +105,15 @@ Meteor.methods({
 			return Dares.find(
 				{$and: [
 					{$or: [
-						{sendTo:Meteor.userId()},
+						{$and: [
+							{sendTo:Meteor.userId()},
+							{receiverOdds: {$exists: false}}
+						]},
 						{$and: [
 							{creator: Meteor.userId()},
-							{max: {$exists: true}}
+							{max: {$exists: true}},
+							{creatorOdds: {$exists:false}}
 						]}
-					]},
-					{$or:[
-						{receiverOdds: {$exists: false}},
-						{creatorOdds: {$exists:false}}
 					]}
 				]},
 			{sort: {createdAt: -1}}
@@ -149,6 +151,29 @@ Meteor.methods({
 			).fetch();
 		}
 	},
+	//returns all your dares that are completed
+	//called from: doneDares, daresReceived
+	getDaresDone: function(){
+		if (!this.userId){
+			console.log('Not Logged In');
+			return null;
+		}
+		else{
+			return Dares.find(
+				{$and: [
+					{$or: [
+						{creator:Meteor.userId()},
+						{sendTo:Meteor.userId()}
+					]},
+					{$and: [
+						{receiverOdds: {$exists: true}},
+						{creatorOdds: {$exists:true}}
+					]}
+				]},
+				{sort: {isNewC: -1, isNewR: -1, createdAt: -1}}
+				).fetch();
+		}
+	},
 	//returns challenge from the dare waiting for your action
 	//called from: readWaiting
 	getDareWaiting: function(dareId){
@@ -158,6 +183,35 @@ Meteor.methods({
 		}
 		else{
 			return Dares.findOne({_id:dareId});
+		}
+	},
+	//updates isNew to false once dare is over
+	//called from: readers
+	setNew: function(dareId){
+		if (!this.userId){
+			console.log('Not Logged In');
+			return null;
+		}
+		else{
+			let dare = Dares.findOne({_id:dareId});
+			if (Meteor.user().username == dare.userName){
+				Dares.update(
+					{_id:dareId},
+					{$set: {isNewC:false}}
+				);
+				if (dare.creator == dare.friendly){
+					Dares.update(
+						{_id:dareId},
+						{$set: {isNewR:false}}
+					);
+				}
+			}
+			else{
+				Dares.update(
+					{_id:dareId},
+					{$set: {isNewR:false}}
+				);
+			}
 		}
 	}
 });

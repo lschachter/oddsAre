@@ -22,11 +22,52 @@ form, .col-xs-12, input{
   margin-top: 5vh;
 }
 
+.doneButton{
+  font-weight: bold;
+}
+
+.finale{
+  font-weight: bold;
+}
+.from{
+  float: left;
+  padding-left: 10vw;
+  padding-top: 5vh;
+}
+.fromNum{
+  float: left;
+}
+.toNum{
+  float:right;
+}
+
+.to{
+  float: right;
+  padding-right: 10vw;
+  padding-top: 5vh;
+}
+.toNum, .fromNum, .winner{
+  padding-top: 5vh;
+  font-size: 200%;
+}
+.finaleCount{
+  text-align: center;
+}
+.count{
+  font-size: 300%;
+  font-weight: bold;
+}
+
 .container{
   max-width: 600px;
   margin: 0 auto;
   min-height: 100%;
   background: white;
+  /*text-align: center;*/
+}
+
+.bottom{
+  margin-bottom: 5vh;
 }
 
 header {

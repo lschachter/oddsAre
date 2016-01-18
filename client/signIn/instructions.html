@@ -1,0 +1,23 @@
+<template name="instructions">
+	<div class="container">
+		<h2>Odds Are Instructions:</h2>
+		<br>
+		<p>Bored in class? Need a random outburst to break an awkward situation? Look no further.</p>
+		<p>Odds Are allows you to send and receive dares from your friends, decide how likely you are to follow through on it, and then cast your fate!</p>
+		<p>It works like this: someone sends the initial dare. The receiver then picks a number between 2 and 1000, deciding the maximum number to be chosen. Once this max is set, both players pick a number between 1 and the given max. If you both pick the same number, the dare must be done! Otherwise, you’re safe—for now.</p>
+		<p>In this way, the bigger a number you set as the maximum, the less likely it is that you’ll have to follow through on the dare. Remember this when presented with something you don’t want to do! </p>
+		<br>
+		<p>Good luck, and please dare responsibly.</p>
+		<br>
+		{{#if currentUser}}
+			<p>Got it? Click the button below to return to your homepage and start discovering the odds!</p>
+			<div class="col-xs-12">
+	       		<button type="submit" id="submit-home" class="btn btn-default bottom">Home</button>
+	      	</div>
+	    {{else}}
+	    	<p>Know how it works, or already have an account? Click "Sign in" at the top of the page to create an account or log in.</p>
+	    {{/if}} 
+	    <br>
+	    <br>		
+	</div>
+</template>

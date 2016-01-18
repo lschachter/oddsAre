@@ -1,69 +1,99 @@
 <template name="read">
 	<div class="container">
-		{{#if currentUser}}
-			<form class="col-xs-12">
-				<div class="form-group">
-					<span class="text" id="giveMax"> - <strong>{{oddsAre}}</strong> - </span>
-					<br>
-					<span class="text" id="giveMax"> From: <strong>{{from}}</strong></span>
-					{{#if isMax}}
-						<label for="num" class="col-xs-12 control-label">Max: {{findMax}}</label>
-						<div class="col-xs-offset-3 col-xs-6">
-							<input type="range" class="form-control" id="num" min="1" max="{{findMax}}" value="{{findMax}}/2" oninput="numVal.value=value">
-						</div>
-						<input type="number" id="numVal" class="col-xs-offset-5 col-xs-2 control-label" value="{{findMax}}/2" max="{{findMax}}" min="1" oninput="num.value=value">
-					{{else}}
-						<label for="num" class="col-xs-12 control-label">Max --</label>
-						<div class="col-xs-offset-3 col-xs-6">
-							<input type="range" class="form-control" id="num" min="2" max="1000" value="500" oninput="numVal.value=value">
-						</div>
-						<input type="number" id="numVal" class="col-xs-offset-5 col-xs-2 control-label" value="500" max="1000" min="1" oninput="num.value=value">
-					{{/if}}
-				</div>
+		<form class="col-xs-12">
+			<div class="form-group">
+				<span class="text" id="giveMax"> - <strong>{{oddsAre}}</strong> - </span>
+				<br>
+				<span class="text" id="giveMax"> From: <strong>{{from}}</strong></span>
 				{{#if isMax}}
-					<div class="col-xs-12">
-						<button type="submit" id="submit-odds" class="btn btn-default ">Submit 
-							Number</button>
+					<label for="num" class="col-xs-12 control-label">Max: {{findMax}}</label>
+					<div class="col-xs-offset-3 col-xs-6">
+						<input type="range" class="form-control" id="num" min="1" max="{{findMax}}" value="{{findMax}}/2" oninput="numVal.value=value">
 					</div>
+					<input type="number" id="numVal" class="col-xs-offset-5 col-xs-2 control-label" value="{{findMax}}/2" max="{{findMax}}" min="1" oninput="num.value=value">
 				{{else}}
-					<div class="col-xs-12">
-						<button type="submit" id="submit-max" class="btn btn-default ">Submit Maximum</button>
+					<label for="num" class="col-xs-12 control-label">Max --</label>
+					<div class="col-xs-offset-3 col-xs-6">
+						<input type="range" class="form-control" id="num" min="2" max="1000" value="500" oninput="numVal.value=value">
 					</div>
+					<input type="number" id="numVal" class="col-xs-offset-5 col-xs-2 control-label" value="500" max="1000" min="1" oninput="num.value=value">
 				{{/if}}
+			</div>
+			{{#if isMax}}
 				<div class="col-xs-12">
-			        <button type="submit" id="submit-home" class="btn btn-default ">Home</button>
-			    </div>
-			</form>
-		{{/if}}
+					<button type="submit" id="submit-odds" class="btn btn-default ">Submit 
+						Number</button>
+				</div>
+			{{else}}
+				<div class="col-xs-12">
+					<button type="submit" id="submit-max" class="btn btn-default ">Submit Maximum</button>
+				</div>
+			{{/if}}
+			<div class="col-xs-12">
+		        <button type="submit" id="submit-home" class="btn btn-default ">Home</button>
+		    </div>
+		</form>
 	</div>
 </template>
 
 <template name="readWaiting">
 	<div class="container">
-		{{#if currentUser}}
+		<div class="col-xs-12">
+			<strong>{{dare}}</strong>
+			<br>
+			{{#if isMax}}
+				<span class="text">Max: <strong>{{findMax}}</strong></span>
+		    {{/if}}
+			<br>
+			<br>
+			<br>
+			Created by:
+			<li>
+				<span class="text"> - <strong>{{owner}}</strong> - </span>
+	        </li>
+	        Waiting on:
+	        <li>
+				<span class="text"> - <strong>{{waiting}}</strong> - </span>
+	        </li>
+		</div>
+		<form>
 			<div class="col-xs-12">
-				<strong>{{dare}}</strong>
-				<br>
-				{{#if isMax}}
-					<span class="text">Max: <strong>{{findMax}}</strong></span>
-			    {{/if}}
-				<br>
-				<br>
-				<br>
-				Created by:
-				<li>
-					<span class="text"> - <strong>{{owner}}</strong> - </span>
-		        </li>
-		        Waiting on:
-		        <li>
-					<span class="text"> - <strong>{{sentTo}}</strong> - </span>
-		        </li>
+				<button type="submit" id="submit-home" class="btn btn-default ">Return</button>
 			</div>
-			<form>
-				<div class="col-xs-12">
-					<button type="submit" id="submit-home" class="btn btn-default ">Return</button>
-				</div>
-			</form>
-		{{/if}}
+		</form>
+	</div>
+</template>
+
+<template name='readDone'>
+	<div class="container">
+		<div class="finaleCount">
+			{{#if ready}}
+				<form class="new-task">
+			      	<div class="col-xs-12">
+			       		<button type="submit" id="submit-back" class="btn btn-default">Back</button>
+			      	</div>
+			    </form>
+				<span class="text" > - <strong>{{oddsAre}}</strong> - </span>
+				<br>
+				<span class="text" id="giveMax"> Max: <strong>{{findMax}}</strong></span>
+				<span class="text from"><strong>{{from}}</strong></span>
+				<span class="text to"><strong>{{to}}</strong></span>
+				<br>
+				<br>
+				<span class="text fromNum"><strong>{{creatorNum}}</strong></span>
+				<span class="text toNum"><strong>{{receiverNum}}</strong></span>
+				<br>
+				<br>
+				<br>
+				<br>
+				{{#if isEqual}}
+					<span class="winner"><strong>SUCCESS! Get ready {{to}}, you made a deal and now you have stick with it!</strong></span>
+				{{else}}
+					<span class="winner"><strong>Sorry {{from}}, maybe you'll get 'em next time.</strong></span>
+				{{/if}}
+			{{else}}
+				<span class="count" id="countdown"><strong>GET READY</strong></span>
+			{{/if}}
+		</div>
 	</div>
 </template>
